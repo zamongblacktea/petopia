@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="room">
+
+
+	<select id="room_list_one" parameterType="int"
+		resultType="vo.RsvRoomVo">
+
+		select room_idx,room_cap,room_price from room where
+
+		acom_idx = #{ acom_idx }
+
+		group by room_idx,room_cap,room_price
+
+		order by
+		room_price asc
+
+	</select>
+
+
+
+	<select id="room_list" resultType="vo.RsvRoomVo">
+
+		SELECT
+		r.room_idx,
+		r.acom_idx,
+		r.room_type,
+		r.room_cap,
+		r.room_price,
+		r.room_pettype,
+		r.roomimg1, r.roomimg1alt,
+		r.roomimg2, r.roomimg2alt,
+		r.roomimg3, r.roomimg3alt,
+		r.roomimg4, r.roomimg4alt,
+		r.roomimg5, r.roomimg5alt,
+		rv.total_rsv_chk AS total_rsv_chk
+		FROM room r
+		LEFT OUTER JOIN rsv_view rv ON r.room_idx = rv.room_idx
+		WHERE r.acom_idx = #{ acom_idx }
+		ORDER BY r.room_idx
+
+	</select>
+
+	<select id="room_price_one" parameterType="int"
+		resultType="vo.RsvRoomVo">
+
+		select r.room_idx, r.acom_idx , r.room_type, r.room_cap ,
+		r.room_pettype,
+		rv.total_rsv_chk
+		from room r left outer join
+		reservation_view rv on r.acom_idx=rv.acom_idx
+		where r.acom_idx =
+		#{acom_idx} and r.room_idx = #{room_idx}
+		GROUP BY r.room_idx,
+		r.acom_idx , r.room_type, r.room_cap , r.room_pettype,
+		rv.total_rsv_chk
+		order by r.room_idx
+
+	</select>
+
+
+
+
+	<select id="room_img" resultType="vo.RoomVo" parameterType="int">
+
+		select
+		roomimg1,roomimg1alt,roomimg2,roomimg2alt,roomimg3,roomimg3alt,roomimg4,roomimg4alt,roomimg5,roomimg5alt
+		from room where acom_idx = #{acom_idx}
+
+
+
+	</select>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rsv">
+
+	<select id="rsv_list" resultType="vo.RsvVo">
+
+		select * from reservation order
+		by rsv_idx desc
+
+	</select>
+
+
+
+	<resultMap id="rsv_map" type="vo.RsvVo">
+		<result property="mem_idx" column="mem_idx" />
+
+		<collection property="rsv_list" column="{mem_idx=mem_idx}"
+			select="rsv_list" />
+	</resultMap>
+
+	<select id="rsv_list_one" resultMap="rsv_map">
+		select * from reservation
+		where mem_idx = #{mem_idx} order by rsv_idx desc
+	</select>
+
+
+
+	<insert id="rsv_insert" parameterType="vo.RsvVo">
+
+
+		INSERT INTO reservation
+		values(
+		seq_rsv_idx.nextVal, #{room_idx}, #{acom_idx}, #{mem_idx},
+		#{rsv_in}, #{rsv_out},
+		#{rsv_pet}, #{rsv_status}, #{rsv_price},
+		SYSDATE, #{rsv_petinfo} ,
+		#{pay_idx} , 1)
+
+	</insert>
+
+
+
+	<update id="rsv_update_chk" parameterType="vo.RsvVo">
+
+
+	
+		<![CDATA[
+
+     	update reservation
+
+		set rsv_chk = 0
+
+		where rsv_chk = 1 and rsv_out < sysdate
+	
+
+     
+      	]]>
+
+
+
+	</update>
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

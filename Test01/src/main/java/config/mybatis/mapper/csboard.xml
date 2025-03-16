@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="csboard">
+
+ 	<!-- 1대1 고객센터 문의내용추가-->
+	<!-- parameterType "visit"(별칭) = VisitVo가 넘어온것 -> vo.VisitVo 헷갈릴수있어서 직관적으로 기재 -->
+	<insert id="csboard_insert" parameterType="vo.CsboardVo">
+	   <![CDATA[
+			insert into csboard values( seq_cs_idx.nextVal,
+			                            #{mem_idx}, 
+			                            #{mem_name},
+										#{cs_title},
+										#{cs_content},
+										#{cs_type}
+										)	
+	   ]]>
+	</insert>
+  
+  
+  	<!-- mem_idx에 해당되는 게시물 전체 조회             resultType="visit" = vo.VisitVo와 같은것임 -->
+	<!-- mem_idx = #{ mem_idx } 파라미터가 단일변수일때는 변수명 상관없지만 왠만하면 맞춰서써라 -->
+	<select id="csboard_list" parameterType="int" resultType="vo.CsboardVo">
+	  <![CDATA[
+		select * from csboard where mem_idx = #{mem_idx }
+		  ]]>
+	</select>
+  
+  
+	<!-- 게시물 관리자입장에서 전체 조회     resultType="visit" = vo.VisitVo와 같은것임 -->
+	<!-- mem_idx = #{ mem_idx } 파라미터가 필요없음 전체조회이기 때문 -->
+	<select id="csboard_list_all" resultType="vo.CsboardVo">
+	  <![CDATA[
+		select * from csboard 
+		  ]]>
+	</select>
+	
+	
+	<!-- mem_idx에 해당되는 게시물 1건 조회             resultType="visit" = vo.VisitVo와 같은것임 -->
+	<!-- mem_idx = #{ mem_idx } 파라미터가 단일변수일때는 변수명 상관없지만 왠만하면 맞춰서써라 -->
+	<select id="csboard_one" parameterType="int" resultType="vo.CsboardVo">
+	  <![CDATA[
+		select * from csboard where mem_idx = #{ mem_idx }
+		  ]]>
+	</select>
+  
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

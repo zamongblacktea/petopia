@@ -1,0 +1,105 @@
+@charset "UTF-8";
+
+
+
+*{
+	
+	font-size: 20px;
+	
+	
+}
+
+
+
+.search-container {
+	display: flex;
+	margin-top: 150px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 63%;
+	justify-content:center;
+	align-items: center;
+	background: white;
+	border-radius: 20px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+	padding: 10px;
+	
+	
+}
+
+.date-box, .people-box {
+	display: flex;
+	align-items: center;
+	background: #f6f4f2;
+	padding: 12px 15px;
+	border-radius: 25px;
+	margin-right: 8px;
+	transition: background 0.3s ease;
+	cursor: pointer;
+	font-size: 25px;
+}
+
+
+.search-box {
+	width: 200px;
+	display: flex;
+	background: #f6f4f2;
+	padding: 12px 15px;
+	border-radius: 25px;
+	margin-right: 8px;
+	transition: background 0.3s ease;
+	cursor: pointer;
+	font-size: 20px;
+
+
+
+
+
+}
+
+.search-box input, .date-box input, .people-box input {
+	border: none;
+	background: none;
+	outline: none;
+	margin-left: 8px;
+	color: #555;
+	width: 150px;
+	font-size: 20px;
+}
+
+.search-btn {
+	background: #ff6600;
+	text-align: center;
+	color: white;
+	border: none;
+	width: 120px;
+	padding: 12px 20px;
+	border-radius: 25px;
+	font-size: 20px;
+	cursor: pointer;
+	transition: background 0.3s ease;
+}
+
+/* Hover 효과 */
+.search-box:hover, .date-box:hover, .people-box:hover {
+	background: #eceae7;
+}
+
+.search-btn:hover {
+	background: #e55b00;
+}
+
+/* 반응형 */
+@media ( max-width : 768px) {
+	.search-container {
+		flex-direction: column;
+		gap: 10px;
+	}
+	.search-box, .date-box, .people-box {
+		width: 100%;
+		justify-content: center;
+	}
+	.search-btn {
+		width: 100%;
+	}
+}

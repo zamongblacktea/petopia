@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+div.main_news_div_btn{
+   /* border: 1px solid black; */
+   display: inline-block;
+   
+   box-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+   box-shadow: -1px -1px 3px rgba(0,0,0,0.4);
+   border-radius: 20px;
+   
+   margin: 5px 45px;
+   justify-content: center;
+   align-content: center;
+   
+}
+
+img.main_news_btn_img{
+   width: 200px;
+   height: 250px;
+   
+   border-radius: 20px;
+}
+
+div.main_news_div_btn:hover {
+   cursor: pointer;
+   
+   transform: translateY(-3px);
+    transition: transform 0.3s ease-in-out;
+}

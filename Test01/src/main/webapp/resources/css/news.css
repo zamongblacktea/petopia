@@ -1,0 +1,142 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #F4F6F8;
+	
+}
+
+li{
+list-style: none;	
+	
+}
+.header, .main {
+	/* border: 2px solid black; */
+	/* margin: 10px 0; */
+	padding: 20px;
+}
+
+.header {
+	height: 400px;
+	background:	url("../image/반려동물헤더-1.png");
+	background-size: cover;
+	background-position: center 20%;
+		
+}
+
+.header p{
+	margin-top: 100px;
+	font-size: 80px;
+	text-align: center;
+	vertical-align: middle;
+	
+	color: white;
+	text-shadow: 1px 1px 3px black;
+}
+
+form{
+	width: 800px;
+	margin: 0 auto;
+}
+
+/* 메인 & 사이드바 컨테이너 */
+.content-container {
+    display: flex;
+    justify-content: space-between; /* 사이 간격 조정 */
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 20px auto;
+    height: auto;
+}
+
+
+.sidebar {
+	flex: 1;
+    padding: 20px;
+    background-color: white;
+    border-radius: 20px;
+    box-shadow: -1px -1px 2px rgba(0,0,0,0.1);
+    margin-left: 20px;
+    margin-right: 20px;
+    position: sticky;
+    top: 30px;
+}
+
+.sidebar h3{
+	font-weight: bold;
+}
+
+.sidebar a  {
+	font-weight: normal;
+	color: black;
+	font-size: 18px;
+	text-decoration: none;
+	}
+.sidebar a:hover{
+	/* transform: translateY(-10px); */
+	font-weight: bold;
+	
+}
+
+.main {
+	flex: 5;
+	height: auto;
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	background-color: white;
+	
+	border-radius: 20px;
+	box-shadow: -1px -1px 2px rgba(0,0,0,0.1);
+}
+
+.article {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	cursor: pointer;
+	text-align: left;
+	vertical-align: middle;
+	height: 120px;
+}
+
+.article:hover {
+	background-color: #ecf7e6;
+}
+
+.article a{
+	font-size: 18px;
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
+	line-height: 40px;
+}
+
+.article:hover a{
+	font-size: 19px;
+	text-decoration: none;
+	color: black;
+	
+	transition: 0.2s ease-in;
+}
+
+
+/* a:hover{
+	text-decoration: none;
+	color: black;
+	font-size: 17px;
+	
+} */
+
+span{
+	color: #929294;
+}
+
+

@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="acom">
+
+	<select id="acom_list" resultType="vo.AcomVo">
+
+		select * from accommodation
+		order by acom_idx desc
+
+	</select>
+
+	<select id="acom_list_one" parameterType="int"
+		resultType="vo.AcomVo">
+
+		select * from accommodation where acom_idx = #{ acom_idx }
+
+	</select>
+
+
+	<select id="acom_map_list" resultType="vo.AcomVo"
+		parameterType="Map" resultMap="acom_map">
+
+ <![CDATA[
+        SELECT * FROM (
+            SELECT acom.*, ROWNUM AS rnum
+            FROM (
+                SELECT * FROM accommodation
+        ]]>
+		<trim prefix="WHERE" prefixOverrides="OR|AND">
+			<if test="acom_name != null and acom_name != ''">
+                        <![CDATA[ acom_name LIKE '%' || #{acom_name} || '%' ]]>
+			</if>
+			<if test="acom_addr != null and acom_addr != ''">
+                        <![CDATA[ OR acom_addr LIKE '%' || #{acom_addr} || '%' ]]>
+			</if>
+		</trim>
+        <![CDATA[
+                ORDER BY acom_img
+            ) acom
+            WHERE ROWNUM <= #{offset} + #{limit}
+        ) WHERE rnum > #{offset}
+        ]]>
+	</select>
+
+
+	<resultMap type="vo.AcomVo" id="acom_map">
+		<result property="acom_idx" column="acom_idx" />
+
+		<collection property="room_list" column="acom_idx"
+			select="room_list" />
+	</resultMap>
+
+	<select id="room_list" resultType="vo.RsvRoomVo"
+		parameterType="vo.AcomVo">
+
+		select r.room_idx, r.acom_idx , r.room_type, r.room_cap
+		,r.room_price, r.room_pettype,
+		rv.total_rsv_chk
+		from room r left outer
+		join reservation_view rv on r.acom_idx=rv.acom_idx
+		where r.acom_idx =
+		#{acom_idx}
+		GROUP BY r.room_idx, r.acom_idx , r.room_type, r.room_cap
+		,r.room_price, r.room_pettype,
+		rv.total_rsv_chk
+		order by r.room_idx
+
+	</select>
+
+	<!-- resultType or resultMap은 레코드 1개 포장될때 옵션 -->
+	<select id="acom_room_list" resultMap="acom_map">
+
+
+		select * from
+		accommodation
+
+
+	</select>
+
+
+	<insert id="acom_insert_map" parameterType="java.util.Map">
+
+		insert into conn_acom
+		values(#{addr1},#{addr2},#{areacode},#{contentid},#{title},#{tel},#{firstimage},#{mapx},#{mapy})
+
+
+
+	</insert>
+
+
+	<select id="acom_contentid" resultType="vo.Conn_AcomVo">
+
+	
+	  <![CDATA[
+
+     
+     	select contentid from conn_acom
+     
+     
+      ]]>
+
+
+	</select>
+
+
+	<insert id="acom_room_map" parameterType="java.util.Map">
+
+		insert into conn_room
+		values(
+
+		#{ contentid },
+		#{ contenttypeid },
+		#{ roomtitle },
+		#{
+		roompeakseasonminfee1 },
+		#{ roomintro },
+		#{ roomcount },
+		#{
+		roombathfacility },
+		#{ roombath },
+		#{ roomhometheater },
+		#{
+		roomaircondition },
+		#{ roomtv },
+		#{ roompc },
+		#{ roomcable },
+		#{
+		roominternet },
+		#{ roomrefrigerator },
+		#{ roomtoiletries },
+		#{ roomsofa
+		},
+		#{ roomcook },
+		#{ roomtable },
+		#{ roomhairdryer },
+		#{ roomimg1 },
+		#{
+		roomimg1alt },
+		#{ roomimg2 },
+		#{ roomimg2alt },
+		#{ roomimg3 },
+		#{
+		roomimg3alt },
+		#{ roomimg4 },
+		#{ roomimg4alt },
+		#{ roomimg5 },
+		#{
+		roomimg5alt }
+
+
+
+
+		)
+
+
+
+	</insert>
+
+
+	<select id="acom_price_list" resultType="vo.AcomRoomVo">
+
+		select a.acom_idx,r.room_idx,a.acom_name,a.acom_addr,a.acom_img,r.room_price from accommodation a
+
+		LEFT OUTER JOIN room r on a.acom_idx = r.acom_idx
+
+		where a.acom_img is not null
+
+		order by r.room_price asc
+
+	</select>
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

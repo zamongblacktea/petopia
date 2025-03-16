@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="payment">
+
+ <insert id="insert_payment" parameterType="vo.PaymentVo">
+ 
+ INSERT INTO payment VALUES (seq_pay_idx.nextVal , #{mem_idx} , #{room_idx} , #{acom_idx} ,#{pay_type} ,#{pay_status}, SYSDATE , #{imp_uid}, #{merchant_uid}, #{amount})
+    
+ 
+ </insert>
+  
+  
+  <select id="select_max_pay_idx" resultType="int">
+  
+  	select max(pay_idx) from payment
+  
+  </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
